@@ -9,4 +9,6 @@ For any GitHub issue, this extension provides a button "Quick Reply":
    - ...because the problem is solved.
    - ...because all of the items are tracked in other issues.
    
-If the issue includes the above message 3 times the reply will also close the issue.
+If the issue includes the above message 3 times the reply will also close the issue with a nuke icon.
+
+The extension also provides a leader board (users who have the most quick replies).
