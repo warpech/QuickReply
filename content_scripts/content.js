@@ -63,6 +63,12 @@ body {
   border-left: 4px solid transparent;
 }`;
 
+function parsedHtml(html) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, "text/html");
+    return doc.querySelector("div");
+}
+
 function createStyle(doc) {
     var elem = doc.createElement("style");
     elem.appendChild(doc.createTextNode(style));
@@ -89,7 +95,7 @@ function createMenu(doc) {
     var elem = doc.createElement("div");
     elem.id = "quick-reply-container";
 
-    elem.innerHTML = `<div style="position: relative; clear: both">
+    var innerHTML = `<div style="position: relative; clear: both">
     <div class="select-menu-modal-holder" style="bottom: 0">
         <div class="select-menu-modal subscription-menu-modal js-menu-content" style="margin-bottom: 0">
           <div class="select-menu-header js-navigation-enable" tabindex="-1">
@@ -103,6 +109,8 @@ function createMenu(doc) {
           </div>
         </div>
     </div>`;
+
+    elem.appendChild(parsedHtml(innerHTML));
 
     var quickReplyButton = createButton(document);
     elem.appendChild(quickReplyButton);
@@ -143,14 +151,16 @@ function createOption(doc, reply) {
         icon = `<span class="select-menu-item-icon" title="Closes the issue">🔴</span>`;
     }
 
-    elem.innerHTML = `<div class="select-menu-item-text">
+    var innerHTML = `<div class="select-menu-item-text">
       ${icon}
       <span class="select-menu-item-text">${text}</span>
     </div>`;
 
+    elem.appendChild(parsedHtml(innerHTML));
+
     elem.addEventListener("click", () => {
         var textarea = findCommentTextarea(document.body);
-        textarea.innerHTML = "Quick Reply<sup>[?](https://github.com/warpech/QuickReply)</sup>: " + reply.title;
+        textarea.value = "Quick Reply<sup>[?](https://github.com/warpech/QuickReply)</sup>: " + reply.title;
         findQuickReplyContainer(document.body).close();
         var commentButton = findCommentButton(document.body);
         var closeButton = findCloseButton(document.body);
@@ -159,7 +169,7 @@ function createOption(doc, reply) {
         } else {
             commentButton.click();
         }
-        textarea.innerHTML = "";
+        textarea.value = "";
     });
 
     return elem;
