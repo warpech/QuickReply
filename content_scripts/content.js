@@ -23,26 +23,22 @@ var findQuickReplyButton = (parent) => {
 var replies = [{
         title: "I think this issue can be closed. The problem is solved.",
         closes: true,
-        issue: true,
-        pr: false
+        issue: true
     },
     {
         title: "I think this issue can be closed. All of the items are tracked in other issues.",
         closes: true,
-        issue: true,
-        pr: false
+        issue: true
     },
     {
         title: "Closing as done.",
         closes: true,
-        issue: true,
-        pr: false
+        issue: true
     },
     {
         title: "This PR is was not updated in a while. Code starts to smell.",
         closes: false,
-        issue: true,
-        pr: false
+        issue: true
     }
 ];
 
@@ -108,10 +104,6 @@ function createMenu(doc) {
         </div>
     </div>`;
 
-    elem.querySelector('[aria-label="Close"]').addEventListener("click", () => {
-        elem.close();
-    });
-
     var quickReplyButton = createButton(document);
     elem.appendChild(quickReplyButton);
 
@@ -122,6 +114,10 @@ function createMenu(doc) {
     elem.close = () => {
         elem.querySelector('.select-menu-modal-holder').style.display = "none";
     };
+
+    elem.querySelector('[aria-label="Close"]').addEventListener("click", () => {
+        elem.close();
+    });
 
     elem.addEventListener("click", (ev) => {
         ev.stopPropagation();
