@@ -148,6 +148,20 @@ function createOption(doc, reply) {
       <span class="select-menu-item-text">${text}</span>
     </div>`;
 
+    elem.addEventListener("click", () => {
+        var textarea = findCommentTextarea(document.body);
+        textarea.innerHTML = "Quick Reply: " + reply.title;
+        findQuickReplyContainer(document.body).close();
+        var commentButton = findCommentButton(document.body);
+        var closeButton = findCloseButton(document.body);
+        if (reply.closes && closeButton) {
+            closeButton.click();
+        } else {
+            commentButton.click();
+        }
+        textarea.innerHTML = "";
+    });
+
     return elem;
 }
 
@@ -167,20 +181,7 @@ function init(ev) {
         var menu = createMenu(document);
         var menuItems = menu.querySelector("[role='menu']");
         replies.forEach((reply) => {
-            var item = createOption(document, reply);
-            item.addEventListener("click", () => {
-                var textarea = findCommentTextarea(document.body);
-                textarea.innerHTML = "Quick Reply: " + reply.title;
-                menu.close();
-                var closeButton = findCloseButton(document.body);
-                if (reply.closes && closeButton) {
-                    closeButton.click();
-                } else {
-                    commentButton.click();
-                }
-                textarea.innerHTML = "";
-            });
-            menuItems.appendChild(item);
+            menuItems.appendChild(createOption(document, reply));
         });
         commentButton.parentNode.appendChild(menu);
     }
