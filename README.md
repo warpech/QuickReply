@@ -1,4 +1,4 @@
-# Quick Reply
+# Quick Replyy
 
 A Chrome/Firefox extension for GitHub
 
