@@ -1,0 +1,15 @@
+html, body {
+  width: 200px;
+  font-family: sans-serif;
+  background: white;
+}
+
+#homepage {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+#homepage:hover {
+  text-decoration: underline;
+}
