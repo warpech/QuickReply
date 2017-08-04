@@ -187,15 +187,17 @@ function init(ev) {
     }
 }
 
-var target = document.querySelector('.discussion-timeline');
-var observer = new MutationObserver(function(mutations) {
+var target = document.querySelector('#js-repo-pjax-container');
+if (target) {
+    var observer = new MutationObserver(function(mutations) {
+        init();
+    });
+    var config = {
+        childList: true,
+        subtree: true
+    };
+    observer.observe(target, config);
     init();
-});
-var config = {
-    childList: true,
-    subtree: true
-};
-observer.observe(target, config);
-init();
 
-createStyle(document);
+    createStyle(document);
+}
