@@ -4,17 +4,21 @@ if (typeof browser == "undefined") {
     var browser = chrome;
 }
 
-function findCommentButton(parent) {
+var findCommentButton = (parent) => {
     return parent.querySelector("#partial-new-comment-form-actions > button.btn.btn-primary");
-}
-
-function findCloseButton(parent) {
+};
+var findCloseButton = (parent) => {
     return parent.querySelector("#partial-new-comment-form-actions > button[name='comment_and_close']");
-}
-
-function findCommentTextarea(parent) {
+};
+var findCommentTextarea = (parent) => {
     return parent.querySelector("#new_comment_field");
-}
+};
+var findQuickReplyContainer = (parent) => {
+    return parent.querySelector("#quick-reply-container");
+};
+var findQuickReplyButton = (parent) => {
+    return parent.querySelector("#quick-reply-button");
+};
 
 var replies = [{
         title: "I think this issue can be closed. The problem is solved.",
@@ -47,6 +51,11 @@ body {
   border: 5px solid silver;
 }
 
+#quick-reply-container {
+  float: right;
+  margin-right: 5px;
+}
+
 .qr-caret {
   display: inline-block;
   width: 0;
@@ -66,6 +75,7 @@ function createStyle(doc) {
 
 function createButton(doc) {
     var elem = doc.createElement("button");
+    elem.id = "quick-reply-button";
     elem.classList.add("btn", "btn-secondary");
     elem.appendChild(doc.createTextNode("Quick Reply"));
 
@@ -82,8 +92,6 @@ function createButton(doc) {
 function createMenu(doc) {
     var elem = doc.createElement("div");
     elem.id = "quick-reply-container";
-    elem.style.float = "right";
-    elem.style.marginRight = "5px";
 
     elem.innerHTML = `<div style="position: relative; clear: both">
     <div class="select-menu-modal-holder" style="bottom: 0">
@@ -150,12 +158,11 @@ function createOption(doc, reply) {
 function init(ev) {
     var commentButton = findCommentButton(document.body);
     if (commentButton) {
-        var container = document.querySelector("#quick-reply-container");
-        if (container) {
-            var quickReplyButton = container.querySelector(".btn");
-            if (commentButton.hasAttribute("disabled")) {
+        var quickReplyButton = findQuickReplyButton(document.body);
+        if (quickReplyButton) {
+            if (commentButton.hasAttribute("disabled") && !quickReplyButton.hasAttribute("disabled")) {
                 quickReplyButton.setAttribute("disabled", "");
-            } else {
+            } else if (quickReplyButton.hasAttribute("disabled")) {
                 quickReplyButton.removeAttribute("disabled");
             }
             return;
@@ -169,8 +176,9 @@ function init(ev) {
                 var textarea = findCommentTextarea(document.body);
                 textarea.innerHTML = "Quick Reply: " + reply.title;
                 menu.close();
-                if (reply.closes) {
-                    findCloseButton(document.body).click();
+                var closeButton = findCloseButton(document.body);
+                if (reply.closes && closeButton) {
+                    closeButton.click();
                 } else {
                     commentButton.click();
                 }
