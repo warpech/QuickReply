@@ -36,7 +36,7 @@ var replies = [{
         issue: true
     },
     {
-        title: "This PR is was not updated in a while. Code starts to smell.",
+        title: "This PR seems stale. Please consider what can be done to finish it.",
         closes: false,
         issue: true
     }
