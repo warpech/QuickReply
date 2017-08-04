@@ -150,7 +150,7 @@ function createOption(doc, reply) {
 
     elem.addEventListener("click", () => {
         var textarea = findCommentTextarea(document.body);
-        textarea.innerHTML = "Quick Reply: " + reply.title;
+        textarea.innerHTML = "Quick Reply<sup>[?](https://github.com/warpech/QuickReply)</sup>: " + reply.title;
         findQuickReplyContainer(document.body).close();
         var commentButton = findCommentButton(document.body);
         var closeButton = findCloseButton(document.body);
