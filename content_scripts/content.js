@@ -44,7 +44,7 @@ var replies = [{
 
 var style = `
 body {
-  border: 5px solid silver;
+  /*border: 5px solid green !important;*/
 }
 
 #quick-reply-container {
