@@ -14,3 +14,7 @@ For any GitHub issue, this extension provides a button "Quick Reply":
 If the issue includes the phrase "I think this issue can be closed" 3 times the reply will also close the issue with a nuke icon.
 
 The extension also provides a leader board (users who have the most quick replies).
+
+## Screenshot
+
+![screenshot](./screenshot.png)
