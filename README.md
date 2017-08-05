@@ -11,4 +11,4 @@ For any GitHub issue or PR, this extension provides a button "Quick Reply":
 
 ## Screenshot
 
-![screenshot](./screenshot.png)
+![screenshot](./assets/screenshot.png)
